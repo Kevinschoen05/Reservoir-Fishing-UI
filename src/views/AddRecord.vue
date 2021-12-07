@@ -11,12 +11,13 @@
             class="pa-5"
             enctype="multipart/form-data"
           >
-            <v-text-field
+            <v-select
               label="Fish Species"
+              :items="species"
               v-model="record.species"
               prepend-icon="mdi-fish"
               :rules="rules"
-            ></v-text-field>
+            ></v-select>
             <v-text-field
               label="Name of Angler"
               v-model="record.angler"
@@ -62,7 +63,8 @@ export default {
         comment: "",
         date: "",
       },
-      reservoirs:[ "Muscoot", "Croton"] 
+      reservoirs:[ "Muscoot", "Croton"],
+      species: ["Large Mouth Bass", "Small Mouth Bass", "Rock Bass", "Pickerel", "Perch", "Sunny", "White Perch", "Crappie", "Trout", "White Bass", ]
     };
 
   },
