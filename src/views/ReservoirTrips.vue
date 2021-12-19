@@ -118,10 +118,10 @@ h1 {
   font-size: 70px;
 }
 .headline {
-  background-color: #212121;
+  background-color: #b3b3b3;
   padding-top: 5px;
   padding-bottom: 5px;
-  color: white;
+  color: black;
 }
 
 .header {
