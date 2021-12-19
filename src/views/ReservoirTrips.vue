@@ -4,14 +4,14 @@
       <h1>{{ reservoir }} Reservoir</h1>
       <h2>Total Trips: {{ totalTrips }}</h2>
       <h2>Total Weight: {{ totalWeight.toFixed(2) }} lbs</h2>
-    </v-card >
+    </v-card>
     <v-row no-gutters class="justify-space-between align-center">
       <v-col sm="12" class="pa-3" v-for="date in tripDates" :key="date">
         <v-card
           @click="
             (overlay = !overlay), (clickedDate = date), filterRecords(records)
           "
-          color="#F6F6F6" 
+          color="#F6F6F6"
         >
           <v-card-title class="headline">{{ date }}</v-card-title>
           <trip-totals :date="date" :records="records"></trip-totals>
@@ -59,6 +59,10 @@ export default {
     //takes full set of fish records and pulls only the unique dates so there are no duplicate dates
     getTripDates(records) {
       var recordDates = [];
+      records.sort(function (a,b){
+        var ADate = new Date(a.date), BDate = new Date(b.date)
+        return BDate - ADate;
+      })
       for (var i = 0; i < records.length; i++) {
         var date = this.formatDates(records[i].date);
         recordDates.push(date);
@@ -110,26 +114,24 @@ export default {
 };
 </script>
 <style scoped>
-
-h1{
+h1 {
   font-size: 70px;
 }
 .headline {
   background-color: #212121;
   padding-top: 5px;
   padding-bottom: 5px;
-  color: white
+  color: white;
 }
 
 .header {
   text-align: center;
   color: black;
-  background: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url('../assets/muscoot.jpeg') center center  !important;
+  background: linear-gradient(
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.5)
+    ),
+    url("../assets/muscoot.jpeg") center center !important;
   background-size: cover;
-
 }
-
-
-
-
 </style>
