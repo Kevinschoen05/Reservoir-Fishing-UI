@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import AddRecord from '../views/AddRecord.vue'
 import ReservoirTrips from '../views/ReservoirTrips.vue'
+import Anglers from '../views/Anglers.vue'
 
 Vue.use(VueRouter);
 
@@ -16,6 +17,11 @@ const routes = [
     path: "/add-record",
     name: "add-record",
     component: AddRecord,
+  },
+  {
+    path: "/anglers",
+    name: "anglers-view",
+    component: Anglers
   },
   {
     path:"/:reservoir",
