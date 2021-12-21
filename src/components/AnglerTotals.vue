@@ -3,8 +3,8 @@
     <template>
       <thead>
         <tr>
-          <td>Species</td>
-          <td>Total Caught</td>
+          <td class="header">Species</td>
+          <td class="header">Total Caught</td>
         </tr>
       </thead>
       <tbody>
@@ -86,3 +86,9 @@ export default {
   },
 };
 </script>Î
+
+<style scoped>
+  .header{
+    font-weight: 900;
+  }
+</style>
