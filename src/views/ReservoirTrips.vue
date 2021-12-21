@@ -5,7 +5,7 @@
       <h2>Total Trips: {{ totalTrips }}</h2>
       <h2>Total Weight: {{ totalWeight.toFixed(2) }} lbs</h2>
     </v-card>
-    <v-row no-gutters class="justify-space-between align-center">
+    <v-row no-gutters class="justify-space-between align-center"> 
       <v-col sm="12" class="pa-3" v-for="date in tripDates" :key="date">
         <v-card
           @click="
@@ -33,7 +33,7 @@
 
 <script>
 import API from "../api";
-import TripTotals from "./TripTotals.vue";
+import TripTotals from "../components/TripTotals.vue";
 export default {
   name: "ReservoirTrips",
   emits: ["records", "tripDates"],
