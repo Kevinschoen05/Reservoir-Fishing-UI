@@ -88,7 +88,7 @@ export default {
 </script>Î
 
 <style scoped>
-  .header{
-    font-weight: 900;
-  }
+.header {
+  font-weight: 900;
+}
 </style>
