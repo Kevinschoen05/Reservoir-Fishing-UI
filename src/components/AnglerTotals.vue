@@ -12,6 +12,10 @@
           <td>{{ species.species }}</td>
           <td>{{ species.count }}</td>
         </tr>
+        <tr>
+          <td class="header">Total</td>
+          <td>{{ anglerTotal }}</td>
+        </tr>
       </tbody>
     </template>
   </v-simple-table>
@@ -22,6 +26,7 @@ export default {
   props: ["angler", "records"],
   data() {
     return {
+      anglerTotal: 0,
       anglerCounts: [
         {
           species: "Large Mouth Bass",
@@ -70,11 +75,10 @@ export default {
     getTotalsByAngler(angler) {
       for (var i = 0; i < this.records.length; i++) {
         if (this.records[i].angler === angler) {
-          console.log(angler);
+          this.anglerTotal++;
           for (var k = 0; k < this.anglerCounts.length; k++) {
             if (this.records[i].species === this.anglerCounts[k].species) {
               this.anglerCounts[k].count++;
-              console.log(this.anglerCounts.count);
             }
           }
         }
