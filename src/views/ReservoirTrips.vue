@@ -63,7 +63,7 @@ export default {
         { text: "Angler", value: "angler" },
         { text: "Weight", value: "weight" },
       ],
-      years: ["All", "2019", "2020", "2021"],
+      years: ["All", "2019", "2020", "2021", "2022"],
     };
   },
   methods: {
