@@ -4,6 +4,7 @@ import Home from "../views/Home.vue";
 import AddRecord from '../views/AddRecord.vue'
 import ReservoirTrips from '../views/ReservoirTrips.vue'
 import Anglers from '../views/Anglers.vue'
+import FishGallery from '../views/FishGallery.vue'
 
 Vue.use(VueRouter);
 
@@ -22,6 +23,11 @@ const routes = [
     path: "/anglers",
     name: "anglers-view",
     component: Anglers
+  },
+  {
+    path: "/fish-id",
+    name: "fish-id",
+    component: FishGallery
   },
   {
     path:"/:reservoir",
