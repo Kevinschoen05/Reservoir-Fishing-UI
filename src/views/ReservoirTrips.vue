@@ -5,7 +5,16 @@
       <h2>Total Trips: {{ totalTrips }}</h2>
       <h2>Total Weight: {{ totalWeight.toFixed(2) }} lbs</h2>
     </v-card>
-    <v-row no-gutters class="justify-space-between align-center"> 
+    <v-select
+      :items="years"
+      label="Choose Season"
+      v-model="selectedYear"
+      solo
+      class="search"
+      @input="filterByYear()"
+    ></v-select>
+
+    <v-row no-gutters class="justify-space-between align-center">
       <v-col sm="12" class="pa-3" v-for="date in tripDates" :key="date">
         <v-card
           @click="
@@ -48,21 +57,24 @@ export default {
       totalTrips: 0,
       overlay: false,
       clickedDate: "",
+      selectedYear: "",
       headers: [
         { text: "Species", value: "species" },
         { text: "Angler", value: "angler" },
         { text: "Weight", value: "weight" },
       ],
+      years: ["All", "2019", "2020", "2021"],
     };
   },
   methods: {
     //takes full set of fish records and pulls only the unique dates so there are no duplicate dates
     getTripDates(records) {
       var recordDates = [];
-      records.sort(function (a,b){
-        var ADate = new Date(a.date), BDate = new Date(b.date)
+      records.sort(function (a, b) {
+        var ADate = new Date(a.date),
+          BDate = new Date(b.date);
         return BDate - ADate;
-      })
+      });
       for (var i = 0; i < records.length; i++) {
         var date = this.formatDates(records[i].date);
         recordDates.push(date);
@@ -87,9 +99,25 @@ export default {
       }
     },
 
+    //filters the results shown to a specific year. if "all" is selected, resets the array to contain all dates. resets the array to all dates in the beginning to allow for switching between filters
+    filterByYear() {
+      this.getTripDates(this.records);
+      var filteredDates = [];
+      for (var i = 0; i < this.tripDates.length; i++) {
+        if (this.tripDates[i].slice(0, 4) === this.selectedYear) {
+          filteredDates.push(this.tripDates[i]);
+        }
+      }
+      this.tripDates = filteredDates;
+      if (this.selectedYear === "All") {
+        this.getTripDates(this.records)
+        return;
+      }
+      this.calcReservoirTotals(this.tripDates);
+    },
+
     //clears data table on the "Close Trip Details" button so the table does not continue to aggregate as you view more trips
     //without refreshing
-
     purgeTable() {
       this.recordsByDate = [];
     },
@@ -101,9 +129,6 @@ export default {
       }
       this.totalTrips = this.tripDates.length;
     },
-
-    //Calculates the total fish and total weight for each given trip
-    calcTripTotals() {},
   },
 
   async created() {
@@ -133,5 +158,9 @@ h1 {
     ),
     url("../assets/muscoot.jpeg") center center !important;
   background-size: cover;
+}
+
+.search {
+  padding-top: 30px;
 }
 </style>
