@@ -57,7 +57,7 @@ export default {
       totalTrips: 0,
       overlay: false,
       clickedDate: "",
-      selectedYear: "",
+      selectedYear: "All",
       headers: [
         { text: "Species", value: "species" },
         { text: "Angler", value: "angler" },
@@ -102,6 +102,7 @@ export default {
     //filters the results shown to a specific year. if "all" is selected, resets the array to contain all dates. resets the array to all dates in the beginning to allow for switching between filters
     filterByYear() {
       this.getTripDates(this.records);
+      this.totalWeight = 0;
       var filteredDates = [];
       for (var i = 0; i < this.tripDates.length; i++) {
         if (this.tripDates[i].slice(0, 4) === this.selectedYear) {
@@ -110,9 +111,10 @@ export default {
       }
       this.tripDates = filteredDates;
       if (this.selectedYear === "All") {
-        this.getTripDates(this.records)
+        this.getTripDates(this.records);
       }
-      this.calcReservoirTotals(this.tripDates);
+      this.calcReservoirTotalWeight(this.records);
+      this.calcReservoirTotalTrips();
     },
 
     //clears data table on the "Close Trip Details" button so the table does not continue to aggregate as you view more trips
@@ -122,10 +124,18 @@ export default {
     },
 
     //Calculates Header data that sums total weight and total amount of trips that occurred on the reservoir
-    calcReservoirTotals(reservoirRecords) {
+    calcReservoirTotalWeight(reservoirRecords) {
       for (var i = 0; i < reservoirRecords.length; i++) {
-        this.totalWeight += reservoirRecords[i].weight;
+        if (this.selectedYear == "All") {
+          this.totalWeight += reservoirRecords[i].weight;
+        } else if (reservoirRecords[i].date.slice(0, 4) === this.selectedYear) {
+          this.totalWeight += reservoirRecords[i].weight;
+        }
       }
+      //this.totalTrips = this.tripDates.length;
+    },
+
+    calcReservoirTotalTrips() {
       this.totalTrips = this.tripDates.length;
     },
   },
@@ -133,7 +143,8 @@ export default {
   async created() {
     this.records = await API.getRecordsByReservoir(this.reservoir);
     this.getTripDates(this.records);
-    this.calcReservoirTotals(this.records);
+    this.calcReservoirTotalWeight(this.records);
+    this.calcReservoirTotalTrips();
   },
 };
 </script>
