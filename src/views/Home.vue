@@ -8,14 +8,14 @@
       v-if="this.$route.params.message"
       >{{ this.$route.params.message }}</v-alert
     >
-    <v-row no-gutters class="d-flex justify-space-between">
+    <v-row class="justify-space-between">
       <v-col
         sm="4"
         class="pa-4"
         v-for="reservoir in reservoirs"
         :key="reservoir.name"
       >
-        <v-card class="pa-1" :to="reservoir.link">
+        <v-card :to="reservoir.link">
           <v-img height="250" :src="reservoir.image"> </v-img>
           <v-card-title class="headline">{{ reservoir.name }}</v-card-title>
         </v-card>
