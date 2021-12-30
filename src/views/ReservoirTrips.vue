@@ -111,7 +111,6 @@ export default {
       this.tripDates = filteredDates;
       if (this.selectedYear === "All") {
         this.getTripDates(this.records)
-        return;
       }
       this.calcReservoirTotals(this.tripDates);
     },
