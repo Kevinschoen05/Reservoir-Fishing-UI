@@ -15,7 +15,7 @@
     ></v-select>
 
     <v-row no-gutters class="justify-space-between align-center">
-      <v-col sm="12" class="pa-3" v-for="date in tripDates" :key="date">
+      <v-col sm="12" md="12" class="pa-3" v-for="date in tripDates" :key="date">
         <v-card
           @click="
             (overlay = !overlay), (clickedDate = date), filterRecords(records)
@@ -181,6 +181,10 @@ h1 {
     padding-top: 5px;
     padding-bottom: 5px;
     color: black;
+  }
+
+  v-overlay {
+    max-width: 100px !important;
   }
 }
 </style>
