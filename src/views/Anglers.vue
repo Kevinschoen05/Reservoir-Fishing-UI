@@ -1,12 +1,24 @@
 <template>
   <v-container>
+    <v-select
+      :items="years"
+      label="Choose Season"
+      v-model="selectedYear"
+      solo
+      class="search"
+      @input="filterByYear()"
+    ></v-select>
     <v-row no-gutters class="justify-space-between align-center">
       <v-col class="pa-3" sm="12" v-for="angler in anglers" :key="angler">
-        <v-card >
+        <v-card>
           <h1 class="header pa-3">
             {{ angler }}
           </h1>
-          <angler-totals :records="records" :angler="angler"></angler-totals>
+          <angler-totals
+            :records="records"
+            :angler="angler"
+            :selectedYear="selectedYear"
+          ></angler-totals>
         </v-card>
       </v-col>
     </v-row>
@@ -22,7 +34,9 @@ export default {
   data() {
     return {
       records: [],
-      anglers: []
+      anglers: [],
+      years: ["All", "2019", "2020", "2021", "2022"],
+      selectedYear: "",
     };
   },
   methods: {
@@ -34,6 +48,9 @@ export default {
       }
       this.anglers = [...new Set(anglersList)];
     },
+    filterByYear() {
+      console.log(this.selectedYear);
+    },
   },
   async created() {
     this.records = await API.getAllRecords();
@@ -41,3 +58,9 @@ export default {
   },
 };
 </script>
+<style scoped>
+.search {
+  padding-top: 30px;
+}
+</style>>
+
