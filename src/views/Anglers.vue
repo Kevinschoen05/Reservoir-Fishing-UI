@@ -6,7 +6,6 @@
       v-model="selectedYear"
       solo
       class="search"
-      @input="filterByYear()"
     ></v-select>
     <v-row no-gutters class="justify-space-between align-center">
       <v-col class="pa-3" sm="12" v-for="angler in anglers" :key="angler">
@@ -36,7 +35,7 @@ export default {
       records: [],
       anglers: [],
       years: ["All", "2019", "2020", "2021", "2022"],
-      selectedYear: "",
+      selectedYear: "All",
     };
   },
   methods: {
@@ -47,9 +46,6 @@ export default {
         anglersList.push(angler);
       }
       this.anglers = [...new Set(anglersList)];
-    },
-    filterByYear() {
-      console.log(this.selectedYear);
     },
   },
   async created() {
