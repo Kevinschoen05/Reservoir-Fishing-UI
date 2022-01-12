@@ -26,7 +26,6 @@ export default {
   props: ["angler", "records", "selectedYear"],
   watch: {
     selectedYear: function () {
-      console.log(this.selectedYear + this.angler);
       this.anglerTotal = 0;
       this.clearTotals();
       this.getTotalsByAngler(this.angler);
