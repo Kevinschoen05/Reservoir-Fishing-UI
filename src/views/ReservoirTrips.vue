@@ -173,4 +173,14 @@ h1 {
 .search {
   padding-top: 30px;
 }
+
+@media only screen and (max-width: 400px) {
+  .headline {
+    font-size: 20px !important;
+    background-color: #b3b3b3;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: black;
+  }
+}
 </style>
