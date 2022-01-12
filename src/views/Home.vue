@@ -17,7 +17,7 @@
       >
         <v-card :to="reservoir.link">
           <v-img height="250" :src="reservoir.image"> </v-img>
-          <v-card-title class="headline">{{ reservoir.name }}</v-card-title>
+          <v-card-title class="headline">{{ reservoir.name }} Reservoir</v-card-title>
         </v-card>
       </v-col>
     </v-row>
