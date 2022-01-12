@@ -23,7 +23,15 @@
 
 <script>
 export default {
-  props: ["angler", "records"],
+  props: ["angler", "records", "selectedYear"],
+  watch: {
+    selectedYear: function () {
+      console.log(this.selectedYear + this.angler);
+      this.anglerTotal = 0;
+      this.clearTotals();
+      this.getTotalsByAngler(this.angler);
+    },
+  },
   data() {
     return {
       anglerTotal: 0,
@@ -74,14 +82,32 @@ export default {
   methods: {
     getTotalsByAngler(angler) {
       for (var i = 0; i < this.records.length; i++) {
-        if (this.records[i].angler === angler) {
+        if (
+          this.records[i].angler === angler &&
+          this.records[i].date.slice(0, 4) === this.selectedYear
+        ) {
           this.anglerTotal++;
           for (var k = 0; k < this.anglerCounts.length; k++) {
             if (this.records[i].species === this.anglerCounts[k].species) {
               this.anglerCounts[k].count++;
             }
           }
+        } else if (
+          this.records[i].angler === angler &&
+          this.selectedYear === "All"
+        ) {
+          this.anglerTotal++;
+          for (var j = 0; j < this.anglerCounts.length; j++) {
+            if (this.records[i].species === this.anglerCounts[j].species) {
+              this.anglerCounts[j].count++;
+            }
+          }
         }
+      }
+    },
+    clearTotals() {
+      for (var i = 0; i < this.anglerCounts.length; i++) {
+        this.anglerCounts[i].count = 0;
       }
     },
   },
