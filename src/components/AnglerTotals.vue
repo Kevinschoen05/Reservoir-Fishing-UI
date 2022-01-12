@@ -75,6 +75,10 @@ export default {
           species: "White Bass",
           count: 0,
         },
+        {
+          species: "Carp",
+          count: 0,
+        },
       ],
     };
   },
