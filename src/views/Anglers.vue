@@ -1,5 +1,7 @@
 <template>
   <v-container>
+    <h1>Angler Totals</h1>
+    <h3>Total Number of Fish Caught by Each Angler Broken Down by Species</h3>
     <v-select
       :items="years"
       label="Choose Season"
@@ -34,7 +36,20 @@ export default {
     return {
       records: [],
       anglers: [],
-      years: ["All", "2022", "2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012"],
+      years: [
+        "All",
+        "2022",
+        "2021",
+        "2020",
+        "2019",
+        "2018",
+        "2017",
+        "2016",
+        "2015",
+        "2014",
+        "2013",
+        "2012",
+      ],
       selectedYear: "All",
     };
   },
