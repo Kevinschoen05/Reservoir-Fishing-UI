@@ -1,10 +1,11 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
-import AddRecord from '../views/AddRecord.vue'
-import ReservoirTrips from '../views/ReservoirTrips.vue'
-import Anglers from '../views/Anglers.vue'
-import FishGallery from '../views/FishGallery.vue'
+import AddRecord from "../views/AddRecord.vue";
+import ReservoirTrips from "../views/ReservoirTrips.vue";
+import Anglers from "../views/Anglers.vue";
+import FishGallery from "../views/FishGallery.vue";
+import Trends from "../views/Trends.vue";
 
 Vue.use(VueRouter);
 
@@ -22,17 +23,22 @@ const routes = [
   {
     path: "/anglers",
     name: "anglers-view",
-    component: Anglers
+    component: Anglers,
   },
   {
     path: "/fish-id",
     name: "fish-id",
-    component: FishGallery
+    component: FishGallery,
   },
   {
-    path:"/:reservoir",
+    path: "/trends",
+    name: "trends",
+    component: Trends,
+  },
+  {
+    path: "/:reservoir",
     name: "reservoir-trips",
-    component: ReservoirTrips
+    component: ReservoirTrips,
   },
 ];
 
