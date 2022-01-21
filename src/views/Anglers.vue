@@ -92,7 +92,6 @@ export default {
       var orderedAnglers = [];
 
       for (var anglers in totals) {
-        console.log(totals[anglers]);
         if (totals[anglers] > 0) {
           orderedAnglers.push([anglers, totals[anglers]]);
         }
