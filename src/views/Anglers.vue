@@ -90,8 +90,11 @@ export default {
       }
       //takes the totals object and puts it back in array form
       var orderedAnglers = [];
+
       for (var anglers in totals) {
-        orderedAnglers.push([anglers, totals[anglers]]);
+        if (totals[anglers] > 0) {
+          orderedAnglers.push([anglers, totals[anglers]]);
+        }
       }
       //sorts the array from highest total to lowest
       orderedAnglers.sort(function (a, b) {
