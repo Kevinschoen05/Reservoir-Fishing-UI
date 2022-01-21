@@ -32,6 +32,13 @@ export default {
   name: "Anglers",
   emits: ["species", "angler", "records"],
   components: { AnglerTotals },
+  watch: {
+    selectedYear: function () {
+      this.sortedAnglers = [];
+      this.getAnglers(this.records);
+    },
+  },
+
   data() {
     return {
       records: [],
@@ -72,7 +79,12 @@ export default {
         totals[name] = 0;
       }
       for (var i = 0; i < this.records.length; i++) {
-        if (this.records[i].angler in totals) {
+        if (
+          this.records[i].angler in totals &&
+          this.records[i].date.slice(0, 4) === this.selectedYear
+        ) {
+          totals[this.records[i].angler]++;
+        } else if (this.selectedYear === "All") {
           totals[this.records[i].angler]++;
         }
       }
