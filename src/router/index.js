@@ -6,6 +6,7 @@ import ReservoirTrips from "../views/ReservoirTrips.vue";
 import Anglers from "../views/Anglers.vue";
 import FishGallery from "../views/FishGallery.vue";
 import Trends from "../views/Trends.vue";
+import Species from "../views/Species.vue";
 
 Vue.use(VueRouter);
 
@@ -24,6 +25,11 @@ const routes = [
     path: "/anglers",
     name: "anglers-view",
     component: Anglers,
+  },
+  {
+    path: "/species",
+    name: "species-view",
+    component: Species,
   },
   {
     path: "/fish-id",

@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <h1>Angler Totals</h1>
-    <h3>Total Number of Fish Caught by Each Angler Broken Down by Species</h3>
+    <h3>Total Number of Fish Caught by Each Angler</h3>
     <v-select
       :items="years"
       label="Choose Season"
