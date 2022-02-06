@@ -63,13 +63,12 @@
 </template>
 <script>
 import API from "../api";
-import EXIF from "exif-js";
+import exifr from "exifr";
 export default {
   watch: {
     image: function () {
       console.log("Getting coordinate Data");
-      this.coordinates = this.getExif();
-      console.log(this.coordinates);
+      this.getExif(this.image);
     },
   },
   data() {
@@ -87,7 +86,7 @@ export default {
         longitude: "",
       },
       image: "",
-      coordinates: [],
+      coordinates: ["test"],
       latitude: "",
       longitude: "",
       reservoirs: ["Muscoot", "Croton"],
@@ -109,50 +108,16 @@ export default {
     selectFile(file) {
       this.image = file[0];
     },
-    getExif() {
-      var image = this.image;
-
-      EXIF.getData(image, function () {
-        var imageData = this;
-
-        // get latitude from exif data and calculate latitude decimal
-        var latDegree = imageData.exifdata.GPSLatitude[0].numerator;
-        var latMinute = imageData.exifdata.GPSLatitude[1].numerator;
-        var latSecond = imageData.exifdata.GPSLatitude[2].numerator;
-        var latDirection = imageData.exifdata.GPSLatitudeRef;
-
-        var latFinal = convertDMSToDD(
-          latDegree,
-          latMinute,
-          latSecond,
-          latDirection
+    getExif(image) {
+      exifr
+        .gps(image)
+        .then(
+          (coords) => (
+            (this.latitude = coords.latitude),
+            (this.longitude = coords.longitude)
+          )
         );
-        //console.log(latFinal);
-
-        // get longitude from exif data and calculate longitude decimal
-        var lonDegree = imageData.exifdata.GPSLongitude[0].numerator;
-        var lonMinute = imageData.exifdata.GPSLongitude[1].numerator;
-        var lonSecond = imageData.exifdata.GPSLongitude[2].numerator;
-        var lonDirection = imageData.exifdata.GPSLongitudeRef;
-
-        var lonFinal = convertDMSToDD(
-          lonDegree,
-          lonMinute,
-          lonSecond,
-          lonDirection
-        );
-        console.log(lonFinal);
-        return latFinal;
-      });
-      function convertDMSToDD(degrees, minutes, seconds, direction) {
-        var dd = degrees + minutes / 60 + seconds / 360000;
-        if (direction == "S" || direction == "W") {
-          dd = dd * -1;
-        }
-        return dd;
-      }
     },
-
     async submitForm() {
       const formData = new FormData();
       formData.append("image", this.image);
