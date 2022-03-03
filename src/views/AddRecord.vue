@@ -42,16 +42,35 @@
               v-model="record.comment"
               prepend-icon="mdi-note"
             ></v-textarea>
+            <v-file-input
+              @change="selectFile"
+              show-size
+              counter
+              multiple
+              label="Select Image to Upload Catch Location"
+            >
+            </v-file-input>
             <v-btn type="submit" class="mt-3" color="primary">Add Fish</v-btn>
           </v-form>
         </v-card>
       </v-col>
     </v-row>
+    <script
+      type="application/javascript"
+      src="https://cdn.jsdelivr.net/npm/exif-js"
+    ></script>
   </v-container>
 </template>
 <script>
 import API from "../api";
+import exifr from "exifr";
 export default {
+  watch: {
+    image: function () {
+      console.log("Getting coordinate Data");
+      this.getExif(this.image);
+    },
+  },
   data() {
     return {
       rules: [(value) => !!value || "This field is required"],
@@ -62,21 +81,53 @@ export default {
         reservoir: "",
         comment: "",
         date: "",
+        image: "",
+        latitude: "",
+        longitude: "",
       },
-      reservoirs:[ "Muscoot", "Croton"],
-      species: ["Large Mouth Bass", "Small Mouth Bass", "Rock Bass", "Pickerel", "Perch", "Sunny", "White Perch", "Crappie", "Trout", "White Bass", ]
+      image: "",
+      coordinates: ["test"],
+      latitude: "",
+      longitude: "",
+      reservoirs: ["Muscoot", "Croton"],
+      species: [
+        "Large Mouth Bass",
+        "Small Mouth Bass",
+        "Rock Bass",
+        "Pickerel",
+        "Perch",
+        "Sunny",
+        "White Perch",
+        "Crappie",
+        "Trout",
+        "White Bass",
+      ],
     };
-
   },
   methods: {
-
+    selectFile(file) {
+      this.image = file[0];
+    },
+    getExif(image) {
+      exifr
+        .gps(image)
+        .then(
+          (coords) => (
+            (this.latitude = coords.latitude),
+            (this.longitude = coords.longitude)
+          )
+        );
+    },
     async submitForm() {
       const formData = new FormData();
+      formData.append("image", this.image);
       formData.append("species", this.record.species);
       formData.append("angler", this.record.angler);
       formData.append("weight", this.record.weight);
       formData.append("reservoir", this.record.reservoir);
       formData.append("comment", this.record.comment);
+      formData.append("latitude", this.latitude);
+      formData.append("longitude", this.longitude);
       if (this.$refs.form.validate()) {
         const response = await API.addRecord(formData);
         this.$router.push({
@@ -84,7 +135,6 @@ export default {
           params: { message: response.message },
         });
       }
-        
     },
   },
 };
