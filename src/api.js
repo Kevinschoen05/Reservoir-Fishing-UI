@@ -1,5 +1,5 @@
 import axios from "axios";
-const url = "https://reservoir-fishing.herokuapp.com/api/record";
+const url = "api/record";
  
 
 export default class API {
