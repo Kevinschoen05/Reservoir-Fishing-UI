@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <v-container>
+    <h1>Catch Map</h1>
+    <h3>Catch Location of Uploaded Fish by Reservoir</h3>
     <v-select
       :items="reservoirs"
       label="Choose Reservoir"
@@ -7,20 +9,21 @@
       solo
       class="search"
     ></v-select>
-    <GmapMap
-      :center="center"
-      :zoom="13.5"
-      style="width: 100%; height: 400px"
-      :mapTypeId="mapTypeId"
-    >
-      <gmap-marker
-        :key="index"
-        v-for="(m, index) in markers"
-        :position="m.position"
-        :title="m.title"
-      ></gmap-marker>
-    </GmapMap>
-  </div>
+    
+      <GmapMap
+        :center="center"
+        :zoom="13.5"
+        style="width: 100%; height: 400px; justify: center"
+        :mapTypeId="mapTypeId"
+      >
+        <gmap-marker
+          :key="index"
+          v-for="(m, index) in markers"
+          :position="m.position"
+          :title="m.title"
+        ></gmap-marker>
+      </GmapMap> 
+  </v-container>
 </template>
 
 <script>
@@ -87,5 +90,10 @@ export default {
 <style scoped>
 .search {
   padding-top: 30px;
+}
+.map {
+  display: flex;
+  width: 80%;
+  justify-content: center;
 }
 </style>>
