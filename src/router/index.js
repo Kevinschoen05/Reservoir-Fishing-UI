@@ -7,6 +7,7 @@ import Anglers from "../views/Anglers.vue";
 import FishGallery from "../views/FishGallery.vue";
 import Trends from "../views/Trends.vue";
 import Species from "../views/Species.vue";
+import CatchMap from "../views/CatchMap.vue";
 
 Vue.use(VueRouter);
 
@@ -40,6 +41,11 @@ const routes = [
     path: "/trends",
     name: "trends",
     component: Trends,
+  },
+  {
+    path: "/catch-map",
+    name: "catch-map",
+    component: CatchMap,
   },
   {
     path: "/:reservoir",
