@@ -1,5 +1,7 @@
 <template>
   <v-container>
+    <h1>Fish Identifier</h1>
+    <h3>Pictures and Descriptions of Reservoir Species</h3>
     <v-card class="mx-auto my-12" max-width="374">
       <v-img src="../assets/largemouthBass.jpg" class="fishPic"> </v-img>
       <v-card-title>Largemouth Bass</v-card-title>

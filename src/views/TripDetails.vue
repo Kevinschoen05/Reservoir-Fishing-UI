@@ -1,8 +1,7 @@
 <template>
-  <div>
-    <h1>{{ formattedDate }}</h1>
-    <h1>{{ reservoir }}</h1>
-
+  <v-container>
+    <h1>Trip Results</h1>
+    <h3>{{ formattedDate }} on {{ reservoir }} Reservoir</h3>
     <GmapMap
       :center="center"
       :zoom="13.5"
@@ -17,7 +16,9 @@
         :icon="m.icon"
       ></gmap-marker>
     </GmapMap>
-  </div>
+    <v-data-table class="table" :headers="headers" :items="tripRecords">
+    </v-data-table>
+  </v-container>
 </template>
 <script>
 import API from "../api";
@@ -26,6 +27,11 @@ export default {
     return {
       records: [],
       tripRecords: [],
+      headers: [
+        { text: "Species", value: "species" },
+        { text: "Angler", value: "angler" },
+        { text: "Weight", value: "weight" },
+      ],
       mappedRecords: [],
       date: this.$route.params.trip,
       formattedDate: "",
@@ -108,6 +114,13 @@ export default {
       }
       return url;
     },
+    getMapCenter() {
+      if (this.reservoir === "Muscoot") {
+        this.center = this.muscootCenter;
+      } else {
+        this.center = this.crotonCenter;
+      }
+    },
     formatDate(date) {
       var year = date.slice(0, 4);
       var month = date.slice(5, 7);
@@ -160,6 +173,7 @@ export default {
   },
   async created() {
     this.formatDate(this.date);
+    this.getMapCenter();
     this.records = await API.getRecordsByReservoir(this.reservoir);
     this.getTripData(this.date);
     this.getRecordsWithLocation(this.tripRecords);
@@ -167,3 +181,9 @@ export default {
   },
 };
 </script>
+<style scoped>
+.table {
+  margin-top: 10px;
+  width: 50%;
+}
+</style>
