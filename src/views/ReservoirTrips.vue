@@ -25,6 +25,7 @@
           <v-card-title class="headline">{{ date }}</v-card-title>
           <trip-totals :date="date" :records="records"></trip-totals>
         </v-card>
+        <v-btn @click="createTripDetailsRoute(date)">Test</v-btn>
       </v-col>
     </v-row>
     <v-overlay :value="overlay">
@@ -63,7 +64,20 @@ export default {
         { text: "Angler", value: "angler" },
         { text: "Weight", value: "weight" },
       ],
-      years: ["All", "2022", "2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012"],
+      years: [
+        "All",
+        "2022",
+        "2021",
+        "2020",
+        "2019",
+        "2018",
+        "2017",
+        "2016",
+        "2015",
+        "2014",
+        "2013",
+        "2012",
+      ],
     };
   },
   methods: {
@@ -137,6 +151,13 @@ export default {
 
     calcReservoirTotalTrips() {
       this.totalTrips = this.tripDates.length;
+    },
+    createTripDetailsRoute(date) {
+      this.$router.push({
+        name: "trip-details",
+        link: "/:reservoir/",
+        params: { trip: date },
+      });
     },
   },
 

@@ -12,7 +12,7 @@ Vue.use(VueGoogleMaps, {
   },
 });
 
-new Vue({
+new Vue({ 
   router,
   vuetify,
   render: (h) => h(App),
