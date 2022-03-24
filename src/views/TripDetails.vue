@@ -16,8 +16,38 @@
         :icon="m.icon"
       ></gmap-marker>
     </GmapMap>
-    <v-data-table class="table" :headers="headers" :items="tripRecords">
-    </v-data-table>
+    <v-row class="data">
+      <v-data-table class="table" :headers="headers" :items="tripRecords">
+        <h3>Catch Results</h3>
+      </v-data-table>
+      <v-simple-table class="table">
+        <template>
+          <h3>Trip Weather</h3>
+          <tbody>
+            <tr>
+              <td class="value">Conditions</td>
+              <td>{{ weatherConditions }}</td>
+            </tr>
+            <tr>
+              <td class="value">Temperature</td>
+              <td>{{ weatherTemperature }} Degrees</td>
+            </tr>
+            <tr>
+              <td class="value">Wind Speed</td>
+              <td>{{ weatherWindSpeed }} MPH</td>
+            </tr>
+            <tr>
+              <td class="value">Precipitation</td>
+              <td>{{ weatherPrecipitation }} Inches</td>
+            </tr>
+                        <tr>
+              <td class="value">Humidty</td>
+              <td>{{ weatherHumidity }}%</td>
+            </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
+    </v-row>
   </v-container>
 </template>
 <script>
@@ -26,6 +56,12 @@ export default {
   data() {
     return {
       records: [],
+      weatherData: [],
+      weatherConditions: "",
+      weatherTemperature: "",
+      weatherWindSpeed: "",
+      weatherPrecipitation: "",
+      weatherHumidity: "",
       tripRecords: [],
       headers: [
         { text: "Species", value: "species" },
@@ -58,7 +94,6 @@ export default {
           this.mappedRecords.push(records[i]);
         }
       }
-      console.log(this.mappedRecords);
       this.createMarkers(this.mappedRecords);
       this.mappedRecords = [];
     },
@@ -69,11 +104,8 @@ export default {
         var label =
           recordsWithCoords[i].species + "\n" + recordsWithCoords[i].angler;
         var url = this.getMarkerColor(recordsWithCoords[i].species);
-        console.log(url);
         var marker = { lat, lng };
-        console.log(marker);
         this.markers.push({ position: marker, title: label, icon: url });
-        console.log(this.markers);
       }
     },
     getMarkerColor(fishSpecies) {
@@ -170,20 +202,44 @@ export default {
       }
       return monthName;
     },
+    async getWeather() {
+      var weatherData = await API.getWeather(
+        this.date + "T00:00:00",
+        this.date + "T00:00:00"
+      );
+      console.log(weatherData.locations["Yorktown Heights, NY"].values[0]);
+      this.weatherConditions =
+        weatherData.locations["Yorktown Heights, NY"].values[0].conditions;
+      this.weatherTemperature =
+        weatherData.locations["Yorktown Heights, NY"].values[0].temp;
+      this.weatherWindSpeed =
+        weatherData.locations["Yorktown Heights, NY"].values[0].wspd;
+      this.weatherPrecipitation =
+        weatherData.locations["Yorktown Heights, NY"].values[0].precip;
+      this.weatherHumidity =
+        weatherData.locations["Yorktown Heights, NY"].values[0].humidity;
+    },
   },
   async created() {
     this.formatDate(this.date);
     this.getMapCenter();
     this.records = await API.getRecordsByReservoir(this.reservoir);
+    this.getWeather();
     this.getTripData(this.date);
     this.getRecordsWithLocation(this.tripRecords);
-    console.log(this.tripRecords);
+    console.log(this.weatherData.locations.values);
   },
 };
 </script>
 <style scoped>
 .table {
+  width: 100%;
   margin-top: 10px;
-  width: 50%;
+}
+.data {
+  margin-top: 10px;
+}
+.value {
+  font-weight: 900;
 }
 </style>
