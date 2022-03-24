@@ -17,26 +17,16 @@
     <v-row no-gutters class="justify-space-between align-center">
       <v-col sm="12" md="12" class="pa-3" v-for="date in tripDates" :key="date">
         <v-card
-          @click="
-            (overlay = !overlay), (clickedDate = date), filterRecords(records)
-          "
           color="#F6F6F6"
         >
           <v-card-title class="headline">{{ date }}</v-card-title>
           <trip-totals :date="date" :records="records"></trip-totals>
         </v-card>
+        <v-btn @click="createTripDetailsRoute(date)" class="trip-details"
+          >View Trip Details </v-btn
+        >
       </v-col>
     </v-row>
-    <v-overlay :value="overlay">
-      <v-row>
-        <v-data-table :headers="headers" :items="recordsByDate"> </v-data-table>
-      </v-row>
-      <v-row justify="center" class="pt-4">
-        <v-btn @click="(overlay = !overlay), purgeTable()"
-          >Close Trip Details</v-btn
-        >
-      </v-row>
-    </v-overlay>
   </v-container>
 </template>
 
@@ -63,7 +53,20 @@ export default {
         { text: "Angler", value: "angler" },
         { text: "Weight", value: "weight" },
       ],
-      years: ["All", "2022", "2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012"],
+      years: [
+        "All",
+        "2022",
+        "2021",
+        "2020",
+        "2019",
+        "2018",
+        "2017",
+        "2016",
+        "2015",
+        "2014",
+        "2013",
+        "2012",
+      ],
     };
   },
   methods: {
@@ -138,6 +141,13 @@ export default {
     calcReservoirTotalTrips() {
       this.totalTrips = this.tripDates.length;
     },
+    createTripDetailsRoute(date) {
+      this.$router.push({
+        name: "trip-details",
+        link: "/:reservoir/",
+        params: { trip: date },
+      });
+    },
   },
 
   async created() {
@@ -172,6 +182,11 @@ h1 {
 
 .search {
   padding-top: 30px;
+}
+
+.trip-details {
+  width: 100%;
+  background-color: #6d9886 !important;
 }
 
 @media only screen and (max-width: 400px) {

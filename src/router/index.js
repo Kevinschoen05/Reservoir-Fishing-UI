@@ -8,6 +8,7 @@ import FishGallery from "../views/FishGallery.vue";
 import Trends from "../views/Trends.vue";
 import Species from "../views/Species.vue";
 import CatchMap from "../views/CatchMap.vue";
+import TripDetails from "../views/TripDetails.vue"
 
 Vue.use(VueRouter);
 
@@ -51,6 +52,11 @@ const routes = [
     path: "/:reservoir",
     name: "reservoir-trips",
     component: ReservoirTrips,
+  },
+  {
+    path: "/:reservoir/:trip",
+    name: "trip-details",
+    component: TripDetails,
   },
 ];
 
