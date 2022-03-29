@@ -3,6 +3,7 @@
     <v-card class="header" width="100%" img="'../assets/muscoot.jpeg'">
       <h1>{{ reservoir }} Reservoir</h1>
       <h2>Total Trips: {{ totalTrips }}</h2>
+      <h2>Total Fish: {{ totalFish }}</h2>
       <h2>Total Weight: {{ totalWeight.toFixed(2) }} lbs</h2>
     </v-card>
     <v-select
@@ -16,15 +17,13 @@
 
     <v-row no-gutters class="justify-space-between align-center">
       <v-col sm="12" md="12" class="pa-3" v-for="date in tripDates" :key="date">
-        <v-card
-          color="#F6F6F6"
-        >
+        <v-card color="#F6F6F6">
           <v-card-title class="headline">{{ date }}</v-card-title>
           <trip-totals :date="date" :records="records"></trip-totals>
         </v-card>
         <v-btn @click="createTripDetailsRoute(date)" class="trip-details"
-          >View Trip Details </v-btn
-        >
+          >View Trip Details
+        </v-btn>
       </v-col>
     </v-row>
   </v-container>
@@ -45,6 +44,7 @@ export default {
       recordsByDate: [],
       totalWeight: 0,
       totalTrips: 0,
+      totalFish: 0,
       overlay: false,
       clickedDate: "",
       selectedYear: "All",
@@ -106,6 +106,7 @@ export default {
     filterByYear() {
       this.getTripDates(this.records);
       this.totalWeight = 0;
+      this.totalFish = 0;
       var filteredDates = [];
       for (var i = 0; i < this.tripDates.length; i++) {
         if (this.tripDates[i].slice(0, 4) === this.selectedYear) {
@@ -131,8 +132,10 @@ export default {
       for (var i = 0; i < reservoirRecords.length; i++) {
         if (this.selectedYear == "All") {
           this.totalWeight += reservoirRecords[i].weight;
+          this.totalFish++;
         } else if (reservoirRecords[i].date.slice(0, 4) === this.selectedYear) {
           this.totalWeight += reservoirRecords[i].weight;
+          this.totalFish++;
         }
       }
       //this.totalTrips = this.tripDates.length;
