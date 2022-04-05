@@ -1,24 +1,28 @@
 <template>
-  <v-simple-table>
-    <template>
-      <thead>
-        <tr>
-          <td class="header">Species</td>
-          <td class="header">Total Caught</td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="species in anglerCounts" :key="species.species">
-          <td>{{ species.species }}</td>
-          <td>{{ species.count }}</td>
-        </tr>
-        <tr>
-          <td class="header">Total</td>
-          <td>{{ anglerTotal }}</td>
-        </tr>
-      </tbody>
-    </template>
-  </v-simple-table>
+  <v-container>
+    <h2>Catch Average: {{ catchAverage.toFixed(2) }}</h2>
+    <v-simple-table width="100">
+      <template>
+        <thead>
+          <tr>
+            <td class="header">Species</td>
+            <td class="header">Total Caught</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="species in anglerCounts" :key="species.species">
+            <td>{{ species.species }}</td>
+            <td>{{ species.count }}</td>
+          </tr>
+          <tr>
+            <td class="header">Total</td>
+            <td>{{ anglerTotal }}</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </template>
+    </v-simple-table>
+  </v-container>
 </template>
 
 <script>
@@ -80,6 +84,8 @@ export default {
           count: 0,
         },
       ],
+      uniqueTrips: [],
+      catchAverage: 0,
     };
   },
   methods: {
@@ -108,6 +114,16 @@ export default {
         }
       }
     },
+    getCatchAverage(angler, total) {
+      let trips = [];
+      for (var i = 0; i < this.records.length; i++) {
+        if (this.records[i].angler === angler) {
+          trips.push(this.records[i].date.slice(0, 10));
+        }
+      }
+      var uniqueTrips = [...new Set(trips)];
+      this.catchAverage = total / uniqueTrips.length;
+    },
     clearTotals() {
       for (var i = 0; i < this.anglerCounts.length; i++) {
         this.anglerCounts[i].count = 0;
@@ -116,6 +132,7 @@ export default {
   },
   async created() {
     this.getTotalsByAngler(this.angler);
+    this.getCatchAverage(this.angler, this.anglerTotal);
   },
 };
 </script>Î
