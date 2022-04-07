@@ -33,6 +33,7 @@ export default {
       this.anglerTotal = 0;
       this.clearTotals();
       this.getTotalsByAngler(this.angler);
+      this.getCatchAverage(this.angler, this.anglerTotal);
     },
   },
   data() {
@@ -117,11 +118,21 @@ export default {
     getCatchAverage(angler, total) {
       let trips = [];
       for (var i = 0; i < this.records.length; i++) {
-        if (this.records[i].angler === angler) {
+        if (
+          this.records[i].angler === angler &&
+          this.records[i].date.slice(0, 4) === this.selectedYear
+        ) {
+          trips.push(this.records[i].date.slice(0, 10));
+        } else if (
+          this.records[i].angler === angler &&
+          this.selectedYear === "All"
+        ) {
           trips.push(this.records[i].date.slice(0, 10));
         }
       }
+
       var uniqueTrips = [...new Set(trips)];
+      console.log(uniqueTrips);
       this.catchAverage = total / uniqueTrips.length;
     },
     clearTotals() {
