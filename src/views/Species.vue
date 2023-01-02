@@ -64,6 +64,7 @@ export default {
       selectedYear: "All",
       years: [
         "All",
+        "2023",
         "2022",
         "2021",
         "2020",
