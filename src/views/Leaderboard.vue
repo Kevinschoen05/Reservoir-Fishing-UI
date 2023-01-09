@@ -5,7 +5,7 @@
         <v-select :items="years" label="Choose Season" v-model="selectedYear" solo class="search"></v-select>
         <v-row no-gutters class="justify-space-between align-center">
             <v-col class="pa-3" sm="12">
-                <v-card>
+                <v-card class="ma-3">
                     <h1 class="header pa-3">Croton Reservoir</h1>
                     <v-simple-table width="100">
                         <template>
@@ -28,7 +28,7 @@
                         </template>
                     </v-simple-table>
                 </v-card>
-                <v-card>
+                <v-card class="ma-3">
                     <h1 class="header pa-3">Muscoot Reservoir</h1>
                     <v-simple-table width="100">
                         <template>
