@@ -58,10 +58,6 @@
         </v-card>
       </v-col>
     </v-row>
-    <script
-      type="application/javascript"
-      src="https://cdn.jsdelivr.net/npm/exif-js"
-    ></script>
   </v-container>
 </template>
 <script>
