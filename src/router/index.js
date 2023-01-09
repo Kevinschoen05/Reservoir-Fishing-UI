@@ -9,6 +9,7 @@ import Trends from "../views/Trends.vue";
 import Species from "../views/Species.vue";
 import CatchMap from "../views/CatchMap.vue";
 import TripDetails from "../views/TripDetails.vue"
+import Leaderboard from "../views/Leaderboard.vue"
 
 Vue.use(VueRouter);
 
@@ -49,6 +50,11 @@ const routes = [
     component: CatchMap,
   },
   {
+    path: "/leaderboard",
+    name: "leaderboard",
+    component: Leaderboard,
+  },
+  {
     path: "/:reservoir",
     name: "reservoir-trips",
     component: ReservoirTrips,
@@ -58,6 +64,7 @@ const routes = [
     name: "trip-details",
     component: TripDetails,
   },
+
 ];
 
 const router = new VueRouter({

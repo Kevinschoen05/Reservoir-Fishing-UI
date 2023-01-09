@@ -6,7 +6,7 @@
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title>Reservoir Fishing</v-list-item-title>
-          <v-list-item-subtitle>2021</v-list-item-subtitle>
+          <v-list-item-subtitle>2023</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
       <v-divider></v-divider>
@@ -47,6 +47,7 @@ export default {
       { title: "Muscoot", icon: "mdi-map", link: "/Muscoot" },
       { title: "Croton", icon: "mdi-map", link: "/Croton" },
       { title: "Anglers", icon: "mdi-account-group", link: "/anglers" },
+      {title: "Leaderboard", icon: "mdi-seal", link: "/leaderboard" },
       { title: "Species", icon: "mdi-fish", link: "species" },
       { title: "Trends", icon: "mdi-chart-bar", link: "/trends" },
       { title: "Record Fish", icon: "mdi-note-plus", link: "/add-record" },
