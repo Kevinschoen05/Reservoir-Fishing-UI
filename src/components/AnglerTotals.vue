@@ -84,6 +84,10 @@ export default {
           species: "Carp",
           count: 0,
         },
+        {
+          species: "Catfish", 
+          count : 0, 
+        }
       ],
       uniqueTrips: [],
       catchAverage: 0,
