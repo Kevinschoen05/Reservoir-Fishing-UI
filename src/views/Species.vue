@@ -145,6 +145,12 @@ export default {
           crotonTotal: 0,
           total: 0,
         },
+        {
+          species: "Catfish",
+          muscootTotal: 0,
+          crotonTotal: 0,
+          total: 0,
+        },
       ],
     };
   },

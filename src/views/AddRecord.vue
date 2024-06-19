@@ -104,6 +104,7 @@ export default {
         "Crappie",
         "Trout",
         "White Bass",
+        "Catfish"
       ],
     };
   },

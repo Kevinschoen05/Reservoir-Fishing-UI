@@ -68,6 +68,7 @@ export default {
         "Trout",
         "White Bass",
         "Carp",
+        "Catfish"
       ],
     };
   },
