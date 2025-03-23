@@ -79,6 +79,7 @@ export default {
             reservoirs: ["Croton", "Muscoot"],
             years: [
                 "All",
+                "2025",
                 "2024",
                 "2023",
                 "2022",
