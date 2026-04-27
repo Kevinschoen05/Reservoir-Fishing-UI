@@ -46,6 +46,7 @@ export default {
       sortedAnglers: [],
       years: [
         "All",
+        "2026",
         "2025",
         "2024",
         "2023",
